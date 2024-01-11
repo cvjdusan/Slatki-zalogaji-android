@@ -1,0 +1,43 @@
+<!-- res/layout/toolbar.xml -->
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+
+        <!-- Dodajte ikonu burger menija (hamburger) -->
+        <ImageView
+            android:id="@+id/burgerIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_launcher_background"
+            android:layout_gravity="start"
+            android:paddingStart="16dp"/>
+
+        <!-- Dodajte naslov Toolbara -->
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Slatki Zalogaji"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:layout_gravity="center"/>
+
+        <!-- Dodajte dugme Logout (optional) -->
+        <ImageView
+            android:id="@+id/logoutButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_launcher_background"
+            android:layout_gravity="end"
+            android:paddingEnd="16dp"/>
+    </androidx.appcompat.widget.Toolbar>
+
+</RelativeLayout>
