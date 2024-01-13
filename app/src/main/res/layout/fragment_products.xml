@@ -1,0 +1,39 @@
+<!-- fragment_products.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="50dp">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:checkedButton="@+id/radioButtonCakes">
+
+        <RadioButton
+            android:id="@+id/radioButtonCakes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Torte" />
+
+        <RadioButton
+            android:id="@+id/radioButtonPastries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Poslastice" />
+    </RadioGroup>
+
+    <ListView
+        android:id="@+id/listViewProducts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/radioGroup"
+        android:clickable="true"
+        android:cacheColorHint="#00000000"
+        android:scrollingCache="false"
+        android:smoothScrollbar="true"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp" />
+
+</RelativeLayout>
