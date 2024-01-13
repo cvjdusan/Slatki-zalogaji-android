@@ -22,7 +22,7 @@ public class BuyerFragment extends Fragment {
     private ViewPager viewPager;
     private List<Fragment> promotionFragments;
     private int currentPage = 0;
-    private final int DELAY_TIME = 3000; // Vreme u milisekundama između svake promene slike
+    private final int DELAY_TIME = 3000;
     private Handler handler;
 
     public BuyerFragment() {}
@@ -35,7 +35,6 @@ public class BuyerFragment extends Fragment {
         viewPager = view.findViewById(R.id.viewPager);
         setupPromotions();
 
-        // Postavite ViewPager adapter
         PromotionPagerAdapter pagerAdapter = new PromotionPagerAdapter(getChildFragmentManager(), promotionFragments);
         viewPager.setAdapter(pagerAdapter);
 
@@ -52,13 +51,9 @@ public class BuyerFragment extends Fragment {
     private void setupPromotions() {
         promotionFragments = new ArrayList<>();
 
-        // Dodajte fragmente za svaku promociju
         promotionFragments.add(createPromotionFragment("Promocija 1", "Ovo je opis promocije 1.", R.drawable.cake1));
         promotionFragments.add(createPromotionFragment("Promocija 2", "Ovo je opis promocije 2.", R.drawable.cake2));
         promotionFragments.add(createPromotionFragment("Promocija 3", "Ovo je opis promocije 3.", R.drawable.cake3));
-
-        // Možete popuniti podatke za svaku promociju u odgovarajućim fragmentima
-        // Na primer, koristeći Bundle kako biste preneli podatke između BuyerFragment i PromotionFragment
     }
 
     private PromotionFragment createPromotionFragment(String title, String description, int imageResource) {
@@ -85,7 +80,6 @@ public class BuyerFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        // Oslobodi Handler kada fragment bude uništen
         handler.removeCallbacks(autoScrollRunnable);
     }
 }
