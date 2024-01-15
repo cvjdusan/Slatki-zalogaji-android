@@ -12,22 +12,35 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.slatkizalogaji.R;
+import com.example.slatkizalogaji.helpers.ProductHelper;
+import com.example.slatkizalogaji.models.Product;
+
+import java.util.List;
 
 public class ProductDetailFragment extends Fragment {
 
     public ProductDetailFragment() {}
+
+    private List<Product> productList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_product_detail, container, false);
 
+        productList = ProductHelper.loadProductList(requireActivity());
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            String imageUrl = bundle.getString("imageUrl");
-            String productName = bundle.getString("productName");
+            int productId = bundle.getInt("productId");
+            Product product = null;
 
+            for(int i = 0; i < productList.size(); i++) {
+                if(productList.get(i).getId() == productId) {
+                    product = productList.get(i);
+                    break;
+                }
+            }
 
             ImageView imageViewProductDetail = view.findViewById(R.id.imageViewProductDetail);
             TextView textViewProductNameDetail = view.findViewById(R.id.textViewProductNameDetail);
@@ -37,7 +50,7 @@ public class ProductDetailFragment extends Fragment {
             // i postavljanje naziva proizvoda
             // Na primer:
             // Glide.with(requireContext()).load(imageUrl).into(imageViewProductDetail);
-            textViewProductNameDetail.setText(productName);
+            textViewProductNameDetail.setText(product.getName());
 
 
             TextView textViewProductDescription = view.findViewById(R.id.textViewProductDescription);
@@ -47,9 +60,9 @@ public class ProductDetailFragment extends Fragment {
             Button btnAddToCart = view.findViewById(R.id.btnAddToCart);
 
 
-            textViewProductDescription.setText("Ovo je opis proizvoda.");
-            textViewProductIngredients.setText("Sastojci: Brašno, šećer, jaja,...");
-            textViewProductPrice.setText("Cena: $10.99");
+            textViewProductDescription.setText(product.getDescription());
+            textViewProductIngredients.setText(product.getRecipe());
+            textViewProductPrice.setText(product.getPrice() + "RSD");
 
 
             btnAddToCart.setOnClickListener(v -> {

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.slatkizalogaji.R;
 import com.example.slatkizalogaji.adapters.PromotionPagerAdapter;
+import com.example.slatkizalogaji.models.Promotion;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -18,6 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BuyerFragment extends Fragment {
+
+    private final Promotion[] promotions = {
+            new Promotion("Požarevačka čokolada", "Uživajte u najboljoj čokoladi iz Požarevca!", R.drawable.cake1),
+            new Promotion("Torta od vanile", "Probajte požarevačku vanilu!", R.drawable.cake2),
+            new Promotion("Voćna torta", "Torta od lubenice? Da moguće je", R.drawable.cake3)
+    };
+
 
     private ViewPager viewPager;
     private List<Fragment> promotionFragments;
@@ -51,17 +59,17 @@ public class BuyerFragment extends Fragment {
     private void setupPromotions() {
         promotionFragments = new ArrayList<>();
 
-        promotionFragments.add(createPromotionFragment("Promocija 1", "Ovo je opis promocije 1.", R.drawable.cake1));
-        promotionFragments.add(createPromotionFragment("Promocija 2", "Ovo je opis promocije 2.", R.drawable.cake2));
-        promotionFragments.add(createPromotionFragment("Promocija 3", "Ovo je opis promocije 3.", R.drawable.cake3));
+        for (Promotion promotion : promotions) {
+            promotionFragments.add(createPromotionFragment(promotion));
+        }
     }
 
-    private PromotionFragment createPromotionFragment(String title, String description, int imageResource) {
+    private PromotionFragment createPromotionFragment(Promotion promotion) {
         PromotionFragment promotionFragment = new PromotionFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("title", title);
-        bundle.putString("description", description);
-        bundle.putInt("imageResource", imageResource);
+        bundle.putString("title", promotion.getTitle());
+        bundle.putString("description", promotion.getDescription());
+        bundle.putInt("imageResource", promotion.getImageResourceId());
         promotionFragment.setArguments(bundle);
         return promotionFragment;
     }

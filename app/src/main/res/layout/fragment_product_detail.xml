@@ -5,23 +5,35 @@
     android:layout_height="match_parent"
     android:layout_marginTop="50dp">
 
+    <TextView
+        android:id="@+id/textViewProductNameDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="20sp"
+        android:text="Naziv proizvoda"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/imageViewProductDetail"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
     <ImageView
         android:id="@+id/imageViewProductDetail"
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
         android:src="@drawable/cake1"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewProductNameDetail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textViewProductNameDetail"
+        android:id="@+id/textViewProductDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textSize="20sp"
-        android:text="Naziv proizvoda"
+        android:layout_marginTop="8dp"
+        android:text="Opis proizvoda"
+        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/imageViewProductDetail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -48,19 +60,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewProductDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Opis proizvoda"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/textViewProductNameDetail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
-
     <EditText
         android:id="@+id/editTextQuantity"
         android:layout_width="wrap_content"
@@ -70,16 +69,16 @@
         android:inputType="number"
         app:layout_constraintTop_toBottomOf="@id/textViewProductPrice"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/btnAddToCart" />
 
     <Button
         android:id="@+id/btnAddToCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Dodaj u korpu"
-        app:layout_constraintTop_toBottomOf="@id/editTextQuantity"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewProductPrice"
+        app:layout_constraintStart_toEndOf="@id/editTextQuantity"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView

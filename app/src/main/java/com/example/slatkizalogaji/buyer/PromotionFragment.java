@@ -33,6 +33,7 @@ public class PromotionFragment extends Fragment {
         TextView promotionDescription = view.findViewById(R.id.promotionDescription);
 
         Bundle bundle = getArguments();
+
         if (bundle != null) {
             String title = bundle.getString("title", "");
             String description = bundle.getString("description", "");
@@ -42,5 +43,6 @@ public class PromotionFragment extends Fragment {
             promotionDescription.setText(description);
             promotionImage.setImageResource(imageResource);
         }
+
     }
 }

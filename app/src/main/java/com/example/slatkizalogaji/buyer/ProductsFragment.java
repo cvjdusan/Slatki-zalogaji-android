@@ -1,76 +1,113 @@
 package com.example.slatkizalogaji.buyer;
-
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.slatkizalogaji.R;
+import com.example.slatkizalogaji.helpers.ProductHelper;
+import com.example.slatkizalogaji.models.Product;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductsFragment extends Fragment {
 
-    private RadioGroup radioGroup;
     private ListView listViewProducts;
+    private List<Product> productList;
 
-    public ProductsFragment() {}
+    public ProductsFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_products, container, false);
 
-        radioGroup = view.findViewById(R.id.radioGroup);
         listViewProducts = view.findViewById(R.id.listViewProducts);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), R.layout.list_item_product, R.id.textViewProductName, getSampleProductList());
+        productList = ProductHelper.loadProductList(requireActivity());
+
+      //  if (productList == null) {
+            productList = createSampleProductList();
+            saveProductList(productList);
+       // }
+
+        ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(requireContext(), R.layout.list_item_product, R.id.textViewProductName, productList) {
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView textViewProductName = view.findViewById(R.id.textViewProductName);
+
+                Product product = getItem(position);
+                if (product != null) {
+                    textViewProductName.setText(product.getName());
+                }
+
+                return view;
+            }
+        };
+
         listViewProducts.setAdapter(adapter);
 
         listViewProducts.setOnItemClickListener((parent, view1, position, id) -> {
-            String productName = (String) parent.getItemAtPosition(position);
-            String imageUrl = "URL slike proizvoda";
-            showProductDetails(imageUrl, productName);
+            Product selectedProduct = (Product) parent.getItemAtPosition(position);
+            showProductDetails(selectedProduct);
         });
-
-
-
-        radioGroup.setOnCheckedChangeListener((group, checkedId) -> refreshProductList());
 
         return view;
     }
 
-    private void showProductDetails(String imageUrl, String productName) {
-
+    private void showProductDetails(Product product) {
         ProductDetailFragment detailFragment = new ProductDetailFragment();
-
-
         Bundle bundle = new Bundle();
-        bundle.putString("imageUrl", imageUrl);
-        bundle.putString("productName", productName);
+        bundle.putInt("productId", product.getId());
         detailFragment.setArguments(bundle);
 
-
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.container, detailFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.container, detailFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
-    private void refreshProductList() {
+    private List<Product> createSampleProductList() {
+        List<Product> sampleProducts = new ArrayList<>();
+        for (int i = 1; i <= 12; i++) {
+            Product product = new Product(i,"image" + i, "Naziv " + i, "Opis proizvoda " + i, 9.99 * i, "Recept proizvoda " + i);
+            sampleProducts.add(product);
+        }
+        return sampleProducts;
     }
 
-    private String[] getSampleProductList() {
-        return new String[]{"Proizvod 1", "Proizvod 2", "Proizvod 3", "Proizvod 4", "Proizvod 5"};
+    private void saveProductList(List<Product> productList) {
+        SharedPreferences preferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(productList);
+        editor.putString("productList", json);
+        editor.apply();
+    }
+
+    private List<Product> loadProductList() {
+        SharedPreferences preferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = preferences.getString("productList", null);
+        Type type = new TypeToken<List<Product>>() {}.getType();
+        return gson.fromJson(json, type);
     }
 }
