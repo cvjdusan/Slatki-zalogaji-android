@@ -1,5 +1,8 @@
 package com.example.slatkizalogaji.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Product {
     private int id;
     private String image;
@@ -7,6 +10,7 @@ public class Product {
     private String description;
     private double price;
     private String recipe;
+    private List<String> comments = new ArrayList<>();
 
     public Product(int id, String image, String name, String description, double price, String recipe) {
         this.image = image;
@@ -47,5 +51,13 @@ public class Product {
 
     public String getRecipe() {
         return recipe;
+    }
+
+    public List<String> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<String> comments) {
+        this.comments = comments;
     }
 }
