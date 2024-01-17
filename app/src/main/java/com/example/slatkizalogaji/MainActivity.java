@@ -1,4 +1,5 @@
 package com.example.slatkizalogaji;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -100,7 +101,9 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
                 showFragment(new ProfileFragment());
                 break;
             case "Logout":
-                // Logout logic
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             default:
                 break;

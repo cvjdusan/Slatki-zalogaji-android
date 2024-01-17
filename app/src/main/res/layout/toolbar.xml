@@ -30,7 +30,7 @@
             android:textSize="18sp"
             android:layout_gravity="center"/>
 
-        <!-- Dodajte dugme Logout (optional) -->
+
         <ImageView
             android:id="@+id/logoutButton"
             android:layout_width="24dp"
