@@ -72,7 +72,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             });
 
             btnDecreaseQuantity.setOnClickListener(v -> {
-                // Smanjite količinu, ali ne ispod 1, i obavestite promene
                 CartItem cartItem = cartItemList.get(getAdapterPosition());
                 if (cartItem.getQuantity() > 1) {
                     cartItem.setQuantity(cartItem.getQuantity() - 1);

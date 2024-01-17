@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.slatkizalogaji.R;
 import com.example.slatkizalogaji.adapters.CommentAdapter;
 import com.example.slatkizalogaji.helpers.ProductHelper;
@@ -71,8 +72,8 @@ public class ProductDetailFragment extends Fragment {
             TextView textViewCartMessage = view.findViewById(R.id.textViewCartMessage);
 
             textViewProductNameDetail.setText(currentProduct.getName());
-            // Implementiraj logiku za postavljanje slike proizvoda
-            // Glide.with(requireContext()).load(currentProduct.getImage()).into(imageViewProductDetail);
+
+            Glide.with(requireContext()).load(currentProduct.getImageResource()).into(imageViewProductDetail);
             textViewProductDescription.setText(currentProduct.getDescription());
             textViewProductIngredients.setText(currentProduct.getRecipe());
             textViewProductPrice.setText(currentProduct.getPrice() + " RSD");
