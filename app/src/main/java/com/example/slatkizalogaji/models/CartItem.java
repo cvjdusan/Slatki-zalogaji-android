@@ -2,18 +2,16 @@ package com.example.slatkizalogaji.models;
 
 public class CartItem {
 
-    private String productName;
+    private Product product;
     private int quantity;
-    private double price;
 
-    public CartItem(String productName, int quantity, double price) {
-        this.productName = productName;
+    public CartItem(Product product, int quantity) {
+        this.product = product;
         this.quantity = quantity;
-        this.price = price;
     }
 
-    public String getProductName() {
-        return productName;
+    public Product getProduct() {
+        return product;
     }
 
     public int getQuantity() {
@@ -25,6 +23,6 @@ public class CartItem {
     }
 
     public double getPrice() {
-        return price;
+        return product.getPrice();
     }
 }

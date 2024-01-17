@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.example.slatkizalogaji.R;
 import com.example.slatkizalogaji.adapters.CommentAdapter;
 import com.example.slatkizalogaji.helpers.ProductHelper;
+import com.example.slatkizalogaji.models.CartItem;
 import com.example.slatkizalogaji.models.Product;
 
 import java.util.List;
@@ -110,27 +111,25 @@ public class ProductDetailFragment extends Fragment {
     }
 
     private void addToCart(Product product, int quantity) {
-        List<Product> cartProducts = loadCartProducts();
+        List<CartItem> cartProducts = loadCartProducts();
 
         if (cartProducts == null) {
             cartProducts = new ArrayList<>();
         }
 
-        for (int i = 0; i < quantity; i++) {
-            cartProducts.add(product);
-        }
+        cartProducts.add(new CartItem(product, quantity));
 
         saveCartProducts(cartProducts);
     }
 
-    private List<Product> loadCartProducts() {
+    private List<CartItem> loadCartProducts() {
         String json = sharedPreferences.getString("cartProducts", null);
 
         if (json == null) {
             return new ArrayList<>();
         }
 
-        Type type = new TypeToken<List<Product>>() {}.getType();
+        Type type = new TypeToken<List<CartItem>>() {}.getType();
         return new Gson().fromJson(json, type);
     }
 
@@ -159,7 +158,7 @@ public class ProductDetailFragment extends Fragment {
         editor.apply();
     }
 
-    private void saveCartProducts(List<Product> cartProducts) {
+    private void saveCartProducts(List<CartItem> cartProducts) {
         Gson gson = new Gson();
         String json = gson.toJson(cartProducts);
         SharedPreferences.Editor editor = sharedPreferences.edit();

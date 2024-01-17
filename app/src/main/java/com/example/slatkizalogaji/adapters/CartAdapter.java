@@ -4,11 +4,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.slatkizalogaji.R;
 import com.example.slatkizalogaji.models.CartItem;
 
@@ -53,6 +55,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         private TextView textViewPrice;
         private Button btnIncreaseQuantity;
         private Button btnDecreaseQuantity;
+        private ImageView imageView;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -62,6 +65,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
             btnIncreaseQuantity = itemView.findViewById(R.id.btnIncreaseQuantity);
             btnDecreaseQuantity = itemView.findViewById(R.id.btnDecreaseQuantity);
+            imageView = itemView.findViewById(R.id.imageViewProduct);
+
+
+
 
             btnIncreaseQuantity.setOnClickListener(v -> {
 
@@ -82,9 +89,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         }
 
         public void bind(CartItem cartItem) {
-            textViewProductName.setText(cartItem.getProductName());
+            textViewProductName.setText(cartItem.getProduct().getName());
             textViewQuantity.setText(String.valueOf(cartItem.getQuantity()));
-            textViewPrice.setText("$" + String.format("%.2f", cartItem.getPrice()));
+            textViewPrice.setText(String.format("%.2f", cartItem.getPrice()) + "RSD");
+            Glide.with(itemView.getContext()).load(cartItem.getProduct().getImageResource()).into(imageView);
         }
     }
 }
