@@ -71,8 +71,18 @@ public class ProfileFragment extends Fragment {
             currentUser.setAddress(editTextAddress.getText().toString());
             currentUser.setPhone(editTextMobilePhone.getText().toString());
             currentUser.setUsername(editTextUsername.getText().toString());
-            currentUser.setPassword(editTextNewPassword.getText().toString());
+            currentUser.setPassword(editTextPassword.getText().toString());
+            String newPassword = editTextNewPassword.getText().toString();
+            if (!newPassword.isEmpty()) {
+                if(newPassword.equals(currentUser.getPassword())) {
+                    Toast.makeText(getActivity(), "Nova šifra je ista kao i stara.", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    currentUser.setPassword(newPassword);
+                }
+            }
             saveCurrentUser(currentUser);
+            Toast.makeText(getActivity(), "Podaci su uspešno ažurirani.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -83,9 +93,11 @@ public class ProfileFragment extends Fragment {
     }
 
     private void saveCurrentUser(User user) {
-        SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("currentUser", new Gson().toJson(user));
         editor.apply();
     }
+
+
 }
