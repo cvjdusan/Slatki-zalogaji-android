@@ -1,5 +1,6 @@
 package com.example.slatkizalogaji.buyer;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -209,6 +210,12 @@ public class ProductDetailFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("productList", json);
         editor.apply();
+//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+//        SharedPreferences.Editor editor = preferences.edit();
+//        Gson gson = new Gson();
+//        String json = gson.toJson(productList);
+//        editor.putString("productList", json);
+//        editor.apply();
     }
 
     private void saveCartProducts(List<CartItem> cartProducts) {

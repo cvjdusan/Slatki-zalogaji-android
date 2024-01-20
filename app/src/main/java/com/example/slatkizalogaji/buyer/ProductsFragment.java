@@ -49,10 +49,10 @@ public class ProductsFragment extends Fragment {
 
         productList = ProductHelper.loadProductList(requireActivity());
 
-      //  if (productList == null) {
+        if (productList == null) {
             productList = createSampleProductList();
             saveProductList(productList);
-       // }
+        }
 
         ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(requireContext(), R.layout.list_item_product, R.id.textViewProductName, productList) {
             @NonNull
