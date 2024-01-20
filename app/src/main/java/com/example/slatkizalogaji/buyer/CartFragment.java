@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.slatkizalogaji.R;
 import com.example.slatkizalogaji.adapters.CartAdapter;
 import com.example.slatkizalogaji.models.CartItem;
+import com.example.slatkizalogaji.models.Notification;
 import com.example.slatkizalogaji.models.Product;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -24,6 +25,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class CartFragment extends Fragment {
 
@@ -62,7 +64,15 @@ public class CartFragment extends Fragment {
             if(cartItemList.size() == 0){
                 Toast.makeText(getContext(), "Molimo dodajte proizvode u korpu!", Toast.LENGTH_SHORT).show();
             } else {
+                //clearNotifications();
                 Toast.makeText(getContext(), "Naruceno!", Toast.LENGTH_SHORT).show();
+                Notification notification = new Notification("Vasa narudzbina id " + generateRandomId()  + " je prihvaćena", "", "success");
+                List<Notification> notifications = loadNotifications();
+                notifications.add(notification);
+
+                // Delete maybe if not needed
+                saveNotifications(notifications);
+
                 emptyCart();
                 updateView();
             }
@@ -74,12 +84,47 @@ public class CartFragment extends Fragment {
         return view;
     }
 
+    private int generateRandomId() {
+        Random random = new Random();
+        return random.nextInt(10000);
+    }
+
+    private void clearNotifications() {
+        SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.remove("notifications");
+        editor.apply();
+    }
+
     private void updateView() {
         cartItemList.clear();
         List<CartItem> defaultCartItems = new ArrayList<>();
         cartItemList.addAll(defaultCartItems);
         cartAdapter.notifyDataSetChanged();
         updateTotalPrice();
+    }
+
+    private void saveNotifications(List<Notification> notifications) {
+        SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        String json = new Gson().toJson(notifications);
+
+        editor.putString("notifications", json);
+        editor.apply();
+    }
+
+    private List<Notification> loadNotifications() {
+        SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        String json = preferences.getString("notifications", null);
+
+        if (json == null) {
+            return new ArrayList<>();
+        }
+
+        Type type = new TypeToken<List<Notification>>() {}.getType();
+        return new Gson().fromJson(json, type);
     }
 
     private void emptyCart() {

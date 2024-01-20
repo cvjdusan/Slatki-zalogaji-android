@@ -1,5 +1,7 @@
 package com.example.slatkizalogaji.buyer;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,12 @@ import android.widget.TextView;
 
 import com.example.slatkizalogaji.R;
 import com.example.slatkizalogaji.models.Notification;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NotificationsFragment extends Fragment {
 
@@ -22,10 +30,29 @@ public class NotificationsFragment extends Fragment {
 
         LinearLayout notificationsContainer = view.findViewById(R.id.notificationsContainer);
 
-        addNotification(notificationsContainer, new Notification("Vasa narudzbina id 23, narucena 12.12.2023. je prihvacena", "", "success"));
-        addNotification(notificationsContainer, new Notification("Vasa narudzbina id 10, narucena 10.07.2022. je odbijena", "", "fail"));
+        // Delete maybe if not needed
+        List<Notification> notifications = loadNotifications();
+        for(Notification notification: notifications) {
+            addNotification(notificationsContainer, notification);
+        }
+
+        addNotification(notificationsContainer, new Notification("Vasa narudzbina id 22 je prihvaćena", "", "success"));
+        addNotification(notificationsContainer, new Notification("Vasa narudzbina id 10 je odbijena", "", "fail"));
+
 
         return view;
+    }
+
+    private List<Notification> loadNotifications() {
+        SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        String json = preferences.getString("notifications", null);
+
+        if (json == null) {
+            return new ArrayList<>();
+        }
+
+        Type type = new TypeToken<List<Notification>>() {}.getType();
+        return new Gson().fromJson(json, type);
     }
 
     private void addNotification(LinearLayout container, Notification notification) {
