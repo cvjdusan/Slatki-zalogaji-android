@@ -159,6 +159,16 @@ public class ProductDetailFragment extends Fragment {
             cartProducts = new ArrayList<>();
         }
 
+        boolean productExistsInCart = false;
+        for (CartItem item : cartProducts) {
+            if (item.getProduct().getId() == product.getId()) {
+
+                //item.setQuantity(item.getQuantity() + quantity);
+                Toast.makeText(getContext(), "Produkt se već nalazi u korpi", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
         cartProducts.add(new CartItem(product, quantity));
 
         saveCartProducts(cartProducts);
