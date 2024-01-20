@@ -59,9 +59,13 @@ public class CartFragment extends Fragment {
 
 
         btnOrder.setOnClickListener(v -> {
-            emptyCart();
-            Toast.makeText(getContext(), "Naruceno!", Toast.LENGTH_SHORT).show();
-            updateView();
+            if(cartItemList.size() == 0){
+                Toast.makeText(getContext(), "Molimo dodajte proizvode u korpu!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Naruceno!", Toast.LENGTH_SHORT).show();
+                emptyCart();
+                updateView();
+            }
         });
 
 
@@ -116,6 +120,6 @@ public class CartFragment extends Fragment {
         }
 
 
-        textViewTotalPrice.setText("Ukupna cena: $" + String.format("%.2f", total));
+        textViewTotalPrice.setText("Ukupna cena: " + String.format("%.2f", total) + " RSD");
     }
 }

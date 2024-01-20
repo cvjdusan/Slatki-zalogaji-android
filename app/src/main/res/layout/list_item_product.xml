@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/imageViewProduct"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:scaleType="centerCrop"
         android:src="@drawable/cake1" />
 
@@ -17,8 +17,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginStart="16dp"
-        android:textSize="16sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        android:textSize="30sp"
         android:text="Naziv proizvoda" />
 
 </LinearLayout>
