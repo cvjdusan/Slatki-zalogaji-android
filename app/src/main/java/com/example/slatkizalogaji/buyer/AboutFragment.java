@@ -25,9 +25,9 @@ public class AboutFragment extends Fragment {
         textViewDescription = view.findViewById(R.id.textViewDescription);
         textViewAddress = view.findViewById(R.id.textViewAddress);
 
-        // Postavite tekst za opis i adresu
-        textViewDescription.setText("Ovde ide vaš kratak opis.");
-        textViewAddress.setText("Ovde ide vaša adresa.");
+
+        textViewDescription.setText("Mi smo SLATKI ZALOGAJ! Najbolja (i jedina) poslasticarnica u Velikom Gradistu");
+        textViewAddress.setText("Lokacija: Ulica vlaha 133");
 
         return view;
     }

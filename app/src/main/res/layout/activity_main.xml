@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Main content -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -45,7 +44,6 @@
 
     </RelativeLayout>
 
-    <!-- Navigation Drawer -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/drawerRecyclerView"
         android:layout_width="240dp"

@@ -23,7 +23,7 @@ public class BuyerFragment extends Fragment {
     private final Promotion[] promotions = {
             new Promotion("Požarevačka čokolada", "Uživajte u najboljoj čokoladi iz Požarevca!", R.drawable.cake1),
             new Promotion("Torta od vanile", "Probajte požarevačku vanilu!", R.drawable.cake2),
-            new Promotion("Voćna torta", "Torta od lubenice? Da moguće je", R.drawable.cake3)
+            new Promotion("Rafaelo kuglice", "Fantasticne kuglice po najboljoj ceni!", R.drawable.slika2)
     };
 
 
